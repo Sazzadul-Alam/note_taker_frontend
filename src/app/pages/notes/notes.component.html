@@ -1,0 +1,65 @@
+<div>
+  <div *ngIf="errorMessage" class="alert-error">
+    {{ errorMessage }}
+  </div>
+
+  <div class="card">
+    <h3>{{ editingNoteId ? 'Edit Note' : 'Create New Note' }}</h3>
+    <form (ngSubmit)="saveNote()">
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" [(ngModel)]="title" name="noteTitle" placeholder="Note title..." required />
+      </div>
+      <div class="form-group">
+        <label>Content</label>
+        <textarea [(ngModel)]="content" name="noteContent" rows="4" placeholder="Write your note here..."></textarea>
+      </div>
+      <div class="btn-group">
+        <button type="submit" class="btn-primary">{{ editingNoteId ? 'Update Note' : 'Create Note' }}</button>
+        <button type="button" class="btn-secondary" *ngIf="editingNoteId" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+      <h3>My Notes</h3>
+      <span style="font-size: 13px; color: #718096;">Total: {{ total }} notes</span>
+    </div>
+
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Created</th>
+            <th style="width: 150px;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let note of notes">
+            <td><strong>{{ note.title }}</strong></td>
+            <td>{{ note.content }}</td>
+            <td style="color: #718096; font-size: 13px;">{{ note.createdAt | date:'short' }}</td>
+            <td>
+              <div class="btn-group">
+                <button class="btn-secondary" (click)="editNote(note)">Edit</button>
+                <button class="btn-danger" (click)="deleteNote(note.id)">Delete</button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="notes.length === 0">
+            <td colspan="4" style="text-align: center; color: #a0aec0; padding: 24px;">No notes found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      <button class="btn-secondary" (click)="prevPage()" [disabled]="page === 0">Prev</button>
+      <span>Page {{ page + 1 }}</span>
+      <button class="btn-secondary" (click)="nextPage()" [disabled]="(page + 1) * size >= total">Next</button>
+    </div>
+  </div>
+</div>

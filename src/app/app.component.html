@@ -1,0 +1,29 @@
+<div class="app-container">
+  <header>
+    <h1>Secure Note-Taking App</h1>
+    <nav>
+      <ng-container *ngIf="authService.isLoggedIn()">
+        <a routerLink="/notes" routerLinkActive="active">My Notes</a>
+        <a routerLink="/interests" routerLinkActive="active">Interests</a>
+        <ng-container *ngIf="authService.isAdmin()">
+          <a routerLink="/admin/users" routerLinkActive="active">Admin Users</a>
+          <a routerLink="/admin/notes" routerLinkActive="active">Admin Notes</a>
+        </ng-container>
+      </ng-container>
+
+      <div class="user-badge" *ngIf="!authService.isLoggedIn()">
+        <a routerLink="/login" class="btn-primary" style="color: white;">Login / Register</a>
+      </div>
+
+      <div class="user-badge" *ngIf="authService.isLoggedIn()">
+        <span>{{ authService.getUser()?.name }}</span>
+        <span class="role-tag">{{ authService.getUser()?.role }}</span>
+        <button class="btn-secondary" (click)="logout()">Logout</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</div>

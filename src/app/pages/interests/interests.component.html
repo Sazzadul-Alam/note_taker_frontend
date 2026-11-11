@@ -1,0 +1,45 @@
+<div>
+  <div *ngIf="errorMessage" class="alert-error">
+    {{ errorMessage }}
+  </div>
+
+  <div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+      <h3>Users Grouped by Interest</h3>
+    </div>
+
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Interest</th>
+            <th>Total Members</th>
+            <th>Associated Users</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let group of groups">
+            <td><span class="role-tag" style="background: #ebf8ff; color: #2b6cb0; font-size: 13px;">{{ group.interest }}</span></td>
+            <td><strong>{{ group.count }}</strong></td>
+            <td>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <a *ngFor="let u of group.users" [routerLink]="['/users', u.id, 'posts']" style="text-decoration: none; color: #3182ce; font-weight: 500; font-size: 13px; background: #edf2f7; padding: 3px 8px; border-radius: 4px;">
+                  {{ u.name }}
+                </a>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="groups.length === 0">
+            <td colspan="3" style="text-align: center; color: #a0aec0; padding: 24px;">No interest groups found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      <button class="btn-secondary" (click)="prevPage()" [disabled]="page === 0">Prev</button>
+      <span>Page {{ page + 1 }}</span>
+      <button class="btn-secondary" (click)="nextPage()" [disabled]="groups.length < size">Next</button>
+    </div>
+  </div>
+</div>

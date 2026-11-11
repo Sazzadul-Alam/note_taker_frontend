@@ -1,0 +1,227 @@
+/* Modern, clean, responsive CSS styling for Notes App */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f4f6f9;
+  color: #333333;
+  line-height: 1.6;
+}
+
+.app-container {
+  max-width: 1000px;
+  margin: 30px auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Header & Navigation */
+header {
+  border-bottom: 2px solid #eaedf1;
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+}
+
+header h1 {
+  font-size: 26px;
+  color: #2c3e50;
+  margin-bottom: 12px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #4a5568;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+}
+
+nav a:hover,
+nav a.active {
+  background-color: #edf2f7;
+  color: #2b6cb0;
+}
+
+.user-badge {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.role-tag {
+  background-color: #e2e8f0;
+  color: #2d3748;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Common Card */
+.card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.card h2, .card h3 {
+  color: #2d3748;
+  margin-bottom: 16px;
+}
+
+/* Forms & Inputs */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #4a5568;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #2d3748;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background-color: #3182ce;
+  color: #ffffff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #2b6cb0;
+}
+
+.btn-secondary {
+  background-color: #edf2f7;
+  color: #4a5568;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #e2e8f0;
+}
+
+.btn-danger {
+  background-color: #e53e3e;
+  color: #ffffff;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #c53030;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Tables */
+.table-responsive {
+  overflow-x: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+table th,
+table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #edf2f7;
+  font-size: 14px;
+}
+
+table th {
+  background-color: #f7fafc;
+  color: #4a5568;
+  font-weight: 600;
+}
+
+table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.pagination span {
+  font-size: 14px;
+  color: #718096;
+}
+
+/* Alerts */
+.alert-error {
+  background-color: #fff5f5;
+  color: #c53030;
+  border-left: 4px solid #e53e3e;
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 18px;
+  font-size: 14px;
+}
