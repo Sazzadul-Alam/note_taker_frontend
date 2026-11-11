@@ -1,27 +1,71 @@
-# NotesFrontend
+# Secure Note-Taking App - Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.13.
+Frontend client for Secure Note-Taking Application built with **Angular 14**, clean HTML5, and responsive custom CSS.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🚀 Live Backend Integration
+The frontend is already configured with the live Render production backend:
+- **API Base URL**: `https://note-taker-oxfz.onrender.com/api`
+- Configured in `src/environments/environment.ts` and `src/environments/environment.prod.ts`.
 
-## Code scaffolding
+---
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 🛠 Tech Stack & Architecture
+- **Framework**: Angular 14
+- **Styling**: Clean, lightweight custom CSS (no heavy external UI libraries)
+- **State & HTTP**:
+  - `AuthService` - Manages token, user session, and role state.
+  - `AuthInterceptor` - Attaches `Bearer <token>` to all HTTP requests and handles 401 unauthorized errors.
+  - `AdminGuard` - Route guard protecting admin pages (`/admin/users`, `/admin/notes`).
+  - `ApiService` - Centralized service for all backend calls reading from environment.
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 📱 Features & Pages
 
-## Running unit tests
+| Route | Page | Access Level | Description |
+|---|---|---|---|
+| `/login` | Auth | Public | Sign In and Registration forms with role & interests |
+| `/notes` | My Notes | Logged In | Paginated list of notes, create new note, inline edit, and delete |
+| `/interests` | Interests | Logged In | Users grouped by interest with member counts and user links |
+| `/users/:id/posts` | User Posts | Logged In | Posts by selected user with pagination + form to create new post |
+| `/admin/users` | Admin Users | Admin Only | Full CRUD operations on user accounts with pagination |
+| `/admin/notes` | Admin Notes | Admin Only | Global paginated list of all notes from every user |
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
+## 💻 Local Development Setup
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Prerequisites
+- Node.js (v18+)
+- npm (v10+)
+- Angular CLI
 
-## Further help
+### Steps to Run
+```bash
+# 1. Navigate to frontend directory
+cd frontend
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+# 2. Install dependencies
+npm install
+
+# 3. Start development server
+npm start
+```
+Navigate to `http://localhost:4200/` in your browser.
+
+---
+
+## 🏗 Production Build
+```bash
+npm run build
+```
+The production bundle will be output to `dist/notes-frontend/`.
+
+---
+
+## 🌐 Deployment (Vercel / Netlify / Render Static Site)
+The application includes a `src/_redirects` file for Single Page Application (SPA) routing.
+- **Build Command**: `npm run build`
+- **Output Directory**: `dist/notes-frontend`

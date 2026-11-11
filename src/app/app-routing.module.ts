@@ -9,7 +9,7 @@ import { UserPostsComponent } from './pages/user-posts/user-posts.component';
 import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'notes', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: AuthComponent },
   { path: 'notes', component: NotesComponent },
   { path: 'interests', component: InterestsComponent },
