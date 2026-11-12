@@ -15,8 +15,11 @@
       <input type="password" [(ngModel)]="loginPassword" name="loginPassword" placeholder="••••••••" required />
     </div>
     <div class="btn-group" style="margin-top: 20px;">
-      <button type="submit" class="btn-primary">Sign In</button>
-      <button type="button" class="btn-secondary" (click)="toggleMode()">Register Instead</button>
+      <button type="submit" class="btn-primary" [disabled]="isLoading">
+        <span *ngIf="isLoading" class="spinner"></span>
+        <span>{{ isLoading ? 'Signing In...' : 'Sign In' }}</span>
+      </button>
+      <button type="button" class="btn-secondary" (click)="toggleMode()" [disabled]="isLoading">Register Instead</button>
     </div>
   </form>
 
@@ -45,8 +48,11 @@
       <input type="text" [(ngModel)]="registerInterests" name="registerInterests" placeholder="coding, design, music" />
     </div>
     <div class="btn-group" style="margin-top: 20px;">
-      <button type="submit" class="btn-primary">Register</button>
-      <button type="button" class="btn-secondary" (click)="toggleMode()">Sign In Instead</button>
+      <button type="submit" class="btn-primary" [disabled]="isLoading">
+        <span *ngIf="isLoading" class="spinner"></span>
+        <span>{{ isLoading ? 'Registering...' : 'Register' }}</span>
+      </button>
+      <button type="button" class="btn-secondary" (click)="toggleMode()" [disabled]="isLoading">Sign In Instead</button>
     </div>
   </form>
 </div>

@@ -15,8 +15,11 @@
         <textarea [(ngModel)]="content" name="noteContent" rows="4" placeholder="Write your note here..."></textarea>
       </div>
       <div class="btn-group">
-        <button type="submit" class="btn-primary">{{ editingNoteId ? 'Update Note' : 'Create Note' }}</button>
-        <button type="button" class="btn-secondary" *ngIf="editingNoteId" (click)="cancelEdit()">Cancel</button>
+        <button type="submit" class="btn-primary" [disabled]="isSaving">
+          <span *ngIf="isSaving" class="spinner"></span>
+          <span>{{ isSaving ? (editingNoteId ? 'Updating...' : 'Creating...') : (editingNoteId ? 'Update Note' : 'Create Note') }}</span>
+        </button>
+        <button type="button" class="btn-secondary" *ngIf="editingNoteId" (click)="cancelEdit()" [disabled]="isSaving">Cancel</button>
       </div>
     </form>
   </div>
@@ -44,8 +47,11 @@
             <td style="color: #718096; font-size: 13px;">{{ note.createdAt | date:'short' }}</td>
             <td>
               <div class="btn-group">
-                <button class="btn-secondary" (click)="editNote(note)">Edit</button>
-                <button class="btn-danger" (click)="deleteNote(note.id)">Delete</button>
+                <button class="btn-secondary" (click)="editNote(note)" [disabled]="isSaving || deletingId === note.id">Edit</button>
+                <button class="btn-danger" (click)="deleteNote(note.id)" [disabled]="isSaving || deletingId === note.id">
+                  <span *ngIf="deletingId === note.id" class="spinner"></span>
+                  <span>{{ deletingId === note.id ? 'Deleting...' : 'Delete' }}</span>
+                </button>
               </div>
             </td>
           </tr>

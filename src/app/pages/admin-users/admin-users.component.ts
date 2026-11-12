@@ -19,6 +19,8 @@ export class AdminUsersComponent implements OnInit {
   interests = '';
   editingUserId: string | null = null;
   errorMessage = '';
+  isSaving = false;
+  deletingId: string | null = null;
 
   constructor(private apiService: ApiService) {}
 
@@ -58,6 +60,9 @@ export class AdminUsersComponent implements OnInit {
       .map((s) => s.trim())
       .filter((s) => s.length > 0);
 
+    this.isSaving = true;
+    this.errorMessage = '';
+
     if (this.editingUserId) {
       const payload: any = {
         name: this.name,
@@ -70,10 +75,12 @@ export class AdminUsersComponent implements OnInit {
       }
       this.apiService.updateAdminUser(this.editingUserId, payload).subscribe({
         next: () => {
+          this.isSaving = false;
           this.cancelEdit();
           this.loadUsers();
         },
         error: (err) => {
+          this.isSaving = false;
           this.errorMessage = err.error || 'Failed to update user';
         }
       });
@@ -87,10 +94,12 @@ export class AdminUsersComponent implements OnInit {
       };
       this.apiService.createAdminUser(payload).subscribe({
         next: () => {
+          this.isSaving = false;
           this.cancelEdit();
           this.loadUsers();
         },
         error: (err) => {
+          this.isSaving = false;
           this.errorMessage = err.error || 'Failed to create user';
         }
       });
@@ -117,11 +126,15 @@ export class AdminUsersComponent implements OnInit {
 
   deleteUser(id: string | undefined): void {
     if (!id) return;
+    this.deletingId = id;
+    this.errorMessage = '';
     this.apiService.deleteAdminUser(id).subscribe({
       next: () => {
+        this.deletingId = null;
         this.loadUsers();
       },
       error: () => {
+        this.deletingId = null;
         this.errorMessage = 'Failed to delete user';
       }
     });

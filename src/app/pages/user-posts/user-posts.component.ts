@@ -16,6 +16,7 @@ export class UserPostsComponent implements OnInit {
   newTitle = '';
   newContent = '';
   errorMessage = '';
+  isCreating = false;
 
   constructor(private route: ActivatedRoute, private apiService: ApiService) {}
 
@@ -57,13 +58,17 @@ export class UserPostsComponent implements OnInit {
 
   createPost(): void {
     if (!this.newTitle.trim()) return;
+    this.isCreating = true;
+    this.errorMessage = '';
     this.apiService.createPost({ title: this.newTitle, content: this.newContent }).subscribe({
       next: () => {
+        this.isCreating = false;
         this.newTitle = '';
         this.newContent = '';
         this.loadUserPosts();
       },
       error: () => {
+        this.isCreating = false;
         this.errorMessage = 'Failed to create post';
       }
     });

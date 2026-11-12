@@ -20,6 +20,7 @@ export class AuthComponent {
   registerInterests = '';
 
   errorMessage = '';
+  isLoading = false;
 
   constructor(
     private apiService: ApiService,
@@ -34,8 +35,10 @@ export class AuthComponent {
 
   onLogin(): void {
     this.errorMessage = '';
+    this.isLoading = true;
     this.apiService.login({ email: this.loginEmail, password: this.loginPassword }).subscribe({
       next: (res: any) => {
+        this.isLoading = false;
         this.authService.saveAuth(res.token, {
           id: res.id,
           name: res.name,
@@ -45,6 +48,7 @@ export class AuthComponent {
         this.router.navigate(['/notes']);
       },
       error: (err: any) => {
+        this.isLoading = false;
         this.errorMessage = err.error || 'Login failed';
       }
     });
@@ -65,8 +69,10 @@ export class AuthComponent {
       interests: interestsArray
     };
 
+    this.isLoading = true;
     this.apiService.register(payload).subscribe({
       next: (res: any) => {
+        this.isLoading = false;
         this.authService.saveAuth(res.token, {
           id: res.id,
           name: res.name,
@@ -76,6 +82,7 @@ export class AuthComponent {
         this.router.navigate(['/notes']);
       },
       error: (err: any) => {
+        this.isLoading = false;
         this.errorMessage = err.error || 'Registration failed';
       }
     });

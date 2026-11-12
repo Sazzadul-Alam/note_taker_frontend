@@ -12,6 +12,7 @@ import { AdminNotesComponent } from './pages/admin-notes/admin-notes.component';
 import { InterestsComponent } from './pages/interests/interests.component';
 import { UserPostsComponent } from './pages/user-posts/user-posts.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,11 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
       multi: true
     }
   ],

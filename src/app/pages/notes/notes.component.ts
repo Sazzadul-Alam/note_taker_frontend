@@ -16,6 +16,8 @@ export class NotesComponent implements OnInit {
   content = '';
   editingNoteId: string | null = null;
   errorMessage = '';
+  isSaving = false;
+  deletingId: string | null = null;
 
   constructor(private apiService: ApiService) {}
 
@@ -50,24 +52,30 @@ export class NotesComponent implements OnInit {
   }
 
   saveNote(): void {
+    this.isSaving = true;
+    this.errorMessage = '';
     if (this.editingNoteId) {
       this.apiService.updateNote(this.editingNoteId, { title: this.title, content: this.content }).subscribe({
         next: () => {
+          this.isSaving = false;
           this.cancelEdit();
           this.loadNotes();
         },
         error: () => {
+          this.isSaving = false;
           this.errorMessage = 'Failed to update note';
         }
       });
     } else {
       this.apiService.createNote({ title: this.title, content: this.content }).subscribe({
         next: () => {
+          this.isSaving = false;
           this.title = '';
           this.content = '';
           this.loadNotes();
         },
         error: () => {
+          this.isSaving = false;
           this.errorMessage = 'Failed to create note';
         }
       });
@@ -88,11 +96,15 @@ export class NotesComponent implements OnInit {
 
   deleteNote(id: string | undefined): void {
     if (!id) return;
+    this.deletingId = id;
+    this.errorMessage = '';
     this.apiService.deleteNote(id).subscribe({
       next: () => {
+        this.deletingId = null;
         this.loadNotes();
       },
       error: () => {
+        this.deletingId = null;
         this.errorMessage = 'Failed to delete note';
       }
     });

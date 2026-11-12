@@ -23,7 +23,10 @@
         <label>Content</label>
         <textarea [(ngModel)]="newContent" name="postContent" rows="3" placeholder="Write post details..."></textarea>
       </div>
-      <button type="submit" class="btn-primary">Publish Post</button>
+      <button type="submit" class="btn-primary" [disabled]="isCreating">
+        <span *ngIf="isCreating" class="spinner"></span>
+        <span>{{ isCreating ? 'Publishing...' : 'Publish Post' }}</span>
+      </button>
     </form>
   </div>
 

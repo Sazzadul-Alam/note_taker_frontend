@@ -37,8 +37,11 @@
       </div>
 
       <div class="btn-group">
-        <button type="submit" class="btn-primary">{{ editingUserId ? 'Update User' : 'Save User' }}</button>
-        <button type="button" class="btn-secondary" *ngIf="editingUserId" (click)="cancelEdit()">Cancel</button>
+        <button type="submit" class="btn-primary" [disabled]="isSaving">
+          <span *ngIf="isSaving" class="spinner"></span>
+          <span>{{ isSaving ? (editingUserId ? 'Updating...' : 'Saving...') : (editingUserId ? 'Update User' : 'Save User') }}</span>
+        </button>
+        <button type="button" class="btn-secondary" *ngIf="editingUserId" (click)="cancelEdit()" [disabled]="isSaving">Cancel</button>
       </div>
     </form>
   </div>
@@ -67,8 +70,11 @@
             <td>{{ (user.interests || []).join(', ') }}</td>
             <td>
               <div class="btn-group">
-                <button class="btn-secondary" (click)="editUser(user)">Edit</button>
-                <button class="btn-danger" (click)="deleteUser(user.id)">Delete</button>
+                <button class="btn-secondary" (click)="editUser(user)" [disabled]="isSaving || deletingId === user.id">Edit</button>
+                <button class="btn-danger" (click)="deleteUser(user.id)" [disabled]="isSaving || deletingId === user.id">
+                  <span *ngIf="deletingId === user.id" class="spinner"></span>
+                  <span>{{ deletingId === user.id ? 'Deleting...' : 'Delete' }}</span>
+                </button>
               </div>
             </td>
           </tr>
