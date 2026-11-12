@@ -21,6 +21,11 @@ export class ApiService {
     return this.http.post<AuthResponse>(`${this.baseUrl}/auth/login`, data);
   }
 
+  // Keep-alive ping — Render-এর idle sleep ঠেকাতে
+  ping(): Observable<string> {
+    return this.http.get(`${this.baseUrl}/auth/ping`, { responseType: 'text' });
+  }
+
   // Notes (User)
   getNotes(page: number, size: number): Observable<PageResponse<Note>> {
     const params = new HttpParams().set('page', page).set('size', size);
