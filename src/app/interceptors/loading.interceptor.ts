@@ -9,8 +9,8 @@ export class LoadingInterceptor implements HttpInterceptor {
   constructor(private loadingService: LoadingService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    // Keep-alive বা health ping এর সময় গ্লোবাল লোডার দেখানোর প্রয়োজন নেই
-    if (request.url.includes('/api/auth/ping')) {
+    // Keep-alive / health ping এর সময় গ্লোবাল লোডার দেখানো যাবে না
+    if (request.url.includes('/actuator/health') || request.url.includes('/api/auth/ping')) {
       return next.handle(request);
     }
 
@@ -22,4 +22,3 @@ export class LoadingInterceptor implements HttpInterceptor {
     );
   }
 }
-

@@ -21,9 +21,11 @@ export class ApiService {
     return this.http.post<AuthResponse>(`${this.baseUrl}/auth/login`, data);
   }
 
-  // Keep-alive ping — Render-এর idle sleep ঠেকাতে
-  ping(): Observable<string> {
-    return this.http.get(`${this.baseUrl}/auth/ping`, { responseType: 'text' });
+  // Keep-alive ping — Render-এর idle sleep ঠেকাতে (Spring Actuator health endpoint)
+  ping(): Observable<any> {
+    // baseUrl = .../api — actuator is at root level, so strip /api
+    const baseRoot = this.baseUrl.replace(/\/api$/, '');
+    return this.http.get(`${baseRoot}/actuator/health`);
   }
 
   // Notes (User)
